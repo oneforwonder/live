@@ -5,4 +5,15 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2173"]
-                 [om "0.6.4"]])
+                 [om "0.6.4"]]
+  
+  :cljsbuild {
+    :builds 
+              [{:id "dev"
+                :source-paths ["src"]
+                :compiler {
+                           :output-to "main.js "
+                           :output-dir "out"
+                           :optimizations :none
+                           :source-map true }}]}
+  )
