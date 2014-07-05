@@ -1,3 +1,4 @@
+goog.addDependency("net/cookies.js", ['goog.net.Cookies', 'goog.net.cookies'], []);
 goog.addDependency("string/string.js", ['goog.string', 'goog.string.Unicode'], []);
 goog.addDependency("object/object.js", ['goog.object'], []);
 goog.addDependency("string/stringbuffer.js", ['goog.string.StringBuffer'], []);
