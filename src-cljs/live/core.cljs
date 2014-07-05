@@ -1,26 +1,33 @@
 (ns live.core
   (:require [om-tools.core :refer-macros [defcomponent]]
             [om-tools.dom :as dom :include-macros true]
-            
             [om.core :as om :include-macros true]
-            
             [goog.net.cookies :as cks]
-            
-            [cljs.reader :as cr])
+            [cljs.reader :as cr]
+            [fetch.remotes :as remotes])
+  (:require-macros [schema.macros :refer [defschema]]
+                   [fetch.macros :as fm]))
 
-  (:require-macros [schema.macros :refer [defschema]]))
+; Cookie stuff
+;(def cooky (goog.net.Cookies. js/Document))
 
-(def cooky (goog.net.Cookies. js/Document))
-
-(defn setcookie! [n]
-  (.set cooky "saved-count" n 500)
-  (.log js/console "set cookie"))
+;(defn setcookie! [n]
+  ;(.set cooky "saved-count" n 500)
+  ;(.log js/console "set cookie"))
 
 ;(setcookie! 39)
 
+;(.log js/console cooky)
+
+(defn log [expr]
+  (.log js/console expr)
+  expr)
+
 (defn change-count [owner f n]
   (om/set-state! owner :n (f n))
-  (setcookie! (f n)))
+  ;(setcookie! (f n))
+  (fm/remote (set-count) [ret] (log ret)))
+
 
 (defschema Counter
   {:value number})
@@ -45,14 +52,8 @@
         {:on-click #(change-count owner (fn [a] (* a 0)) n)}
         "Reset"))))
 
-(.log js/console cooky)
-      ;(.max-cookie-length goog.net.cookies "saved-count")) 
-
-;(defn widget [data owner]
-  ;(reify
-    ;om/IRender
-    ;(render [this]
-      ;(dom/h1 nil (:text data)))))
-
 (om/root widget {:init (cr/read-string (.get cooky "saved-count"))}
   {:target (. js/document (getElementById "my-app"))})
+
+(fm/remote (get-count) [result]
+  (js/alert result))
