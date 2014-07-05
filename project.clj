@@ -8,7 +8,8 @@
                  [org.clojure/clojurescript "0.0-2197"]
                  [om "0.6.4"]
                  [prismatic/om-tools "0.2.2"]
-                 [prismatic/schema "0.2.4"]] 
+                 [prismatic/schema "0.2.4"]
+                 [fetch "0.1.1"] ] 
 
   :plugins [[lein-cljsbuild "1.0.3"]] 
   
@@ -20,4 +21,6 @@
                            :output-to "main.js"
                            :output-dir "out"
                            :optimizations :none
-                           :source-map true }}]})
+                           :source-map true }}]}
+  
+  :main live.core)
