@@ -15,7 +15,7 @@
   :cljsbuild {
     :builds 
               [{:id "dev"
-                :source-paths ["src" "src/live"]
+                :source-paths ["src-cljs"]
                 :compiler {
                            :output-to "main.js"
                            :output-dir "out"
